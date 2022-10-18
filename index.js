@@ -5,14 +5,18 @@ const connectDb = require('./DB/DB')
 require("dotenv").config();
 const app = express();
 
-app.get("/", () => {
+app.use(bodyParser.json())
+app.use(cors())
+app.use(bodyParser.urlencoded({extended: true}))
+
+app.get("/", (req, res) => {
   res.status(200).send("Hello world");
 });
 
 app.use("/", require("./routes/todo"));
 connectDb();
 
-const port = process.env.port;
+const port = process.env.port || 3000
 app.listen(port, () => {
   console.log("listening on port 3000");
 });
