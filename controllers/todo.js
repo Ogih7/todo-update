@@ -27,12 +27,10 @@ const getTodos = async (req, res) => {
 
 const getTodo = async (req, res) => {
   try {
-    const { id } = req.params.id;
-    const todo = await Todo.findOne({ id: id });
-    if (!todo) return res.status(404).json({ message: "Todo not found" });
-    res
-      .status(200)
-      .json({ message: "Todo retrieved successfully", data: todo });
+    const { id } = req.params;
+    const todo = await Todo.findById(id);
+    if (!todo) return res.status(404).send("No such Todo");
+    res.status(200).json({ message: "Todo retrieved successfully", data: todo });
   } catch (error) {
     res.status(500).send(error.message);
   }

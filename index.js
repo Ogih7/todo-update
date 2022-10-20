@@ -13,8 +13,9 @@ app.get("/", (req, res) => {
   res.status(200).send("Hello world");
 });
 
-app.use("/", require("./routes/todo"));
 connectDb();
+
+app.use("/", require("./routes/todo"));
 
 const port = process.env.port || 3000
 app.listen(port, () => {
